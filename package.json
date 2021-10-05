@@ -11,11 +11,14 @@
   },
   "devDependencies": {
     "@aws-cdk/assert": "1.125.0",
+    "@serverless-stack/static-site-env": "^0.45.0",
     "@types/aws-lambda": "^8.10.70"
   },
   "dependencies": {
+    "@aws-cdk/core": "1.125.0",
     "@serverless-stack/cli": "0.45.0",
     "@serverless-stack/resources": "0.45.0",
-    "@aws-cdk/core": "1.125.0"
+    "aws-cli": "0.0.2",
+    "path": "^0.12.7"
   }
 }
