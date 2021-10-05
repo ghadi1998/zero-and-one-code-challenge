@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
-import { Form, Icon, Spin, Input, Button, notification, Col, Row } from 'antd';
-
+import { Form, Spin, Input, Button, notification, Col, Row } from 'antd';
+import { UserOutlined , LoadingOutlined} from '@ant-design/icons'
 /** Presentational */
 import FormWrapper from '../../Components/Styled/FormWrapper';
 
@@ -85,7 +85,7 @@ class LoginContainer extends React.Component<Props, State> {
                 }
               ]
             })(
-              <Input prefix={<Icon type="user" style={{ color: colors.transparentBlack }} />} placeholder="Username" />
+              <Input prefix={<UserOutlined type="user" style={{ color: colors.transparentBlack }} />} placeholder="Username" />
             )}
           </Form.Item>
           <Form.Item>
@@ -98,7 +98,7 @@ class LoginContainer extends React.Component<Props, State> {
               ]
             })(
               <Input
-                prefix={<Icon type="lock" style={{ color: colors.transparentBlack }} />}
+                prefix={<UserOutlined type="lock" style={{ color: colors.transparentBlack }} />}
                 type="password"
                 placeholder="Password"
               />
@@ -119,7 +119,7 @@ class LoginContainer extends React.Component<Props, State> {
                   htmlType="submit"
                   className="login-form-button"
                 >
-                  {loading ? <Spin indicator={<Icon type="loading" style={{ fontSize: 24 }} spin />} /> : 'Log in'}
+                  {loading ? <Spin indicator={<LoadingOutlined type="loading" style={{ fontSize: 24 }} spin />} /> : 'Log in'}
                 </Button>
               </Col>
               <Col lg={24}>
