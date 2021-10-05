@@ -13,17 +13,16 @@ export default class MyStack extends sst.Stack {
     });
 
 
-
     const mySite = new sst.ReactStaticSite(this, "ReactSite", {
-       path: "frontend",
-       buildOutput: "build",
-       buildCommand: "npm run build",
-       errorPage: sst.StaticSiteErrorOptions.REDIRECT_TO_INDEX_PAGE,
-       environment: {
+      path: "frontend",
+      buildOutput: "build",
+      buildCommand: "npm run build",
+      errorPage: sst.StaticSiteErrorOptions.REDIRECT_TO_INDEX_PAGE,
+      environment: {
         // Pass in the API endpoint to our app
         REACT_APP_API_URL: api.url,
       },
-     });
+    });
 
 
     // Show the endpoint in the output
