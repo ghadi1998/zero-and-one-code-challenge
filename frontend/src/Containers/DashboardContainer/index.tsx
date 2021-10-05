@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Auth } from 'aws-amplify';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { Layout, Menu, Icon, notification } from 'antd';
+import { Layout, Menu , notification } from 'antd';
+import {HomeFilled , SettingFilled , LogoutOutlined , IssuesCloseOutlined} from '@ant-design/icons'
 
 /** App Theme */
 import { colors } from '../../Themes/Colors';
@@ -19,7 +20,7 @@ const DashBoardContainer: React.SFC<RouteComponentProps> = props => {
         localStorage.removeItem(AUTH_USER_TOKEN_KEY);
         history.push('/login');
       });
-    } catch (err) {
+    } catch (err:any) {
       notification.error({ message: err.message });
     }
   };
@@ -30,22 +31,22 @@ const DashBoardContainer: React.SFC<RouteComponentProps> = props => {
         <div className="logo" />
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
           <Menu.Item key="1">
-            <Icon type="home" />
+            <HomeFilled type="home" />
             <span>Home</span>
           </Menu.Item>
           <Menu.Item key="2">
-            <Icon type="setting" />
+            <SettingFilled type="setting" />
             <span>Settings</span>
           </Menu.Item>
           <Menu.Item key="3" onClick={event => handleLogout(event)}>
-            <Icon type="logout" />
+            <LogoutOutlined type="logout" />
             <span>Logout</span>
           </Menu.Item>
         </Menu>
       </Layout.Sider>
       <Layout>
         <Layout.Header style={{ background: colors.white, padding: 0 }}>
-          <Icon
+          <IssuesCloseOutlined
             className="trigger"
             onClick={() => setCollapsed(!collapsed)}
             type={collapsed ? 'menu-unfold' : 'menu-fold'}
