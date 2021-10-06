@@ -14,6 +14,17 @@ export default class MyStack extends sst.Stack {
     });
 
 
+    const userDataTable = new sst.Table(this, "userDataTable", {
+      fields: {
+        userId: sst.TableFieldType.STRING,
+        email: sst.TableFieldType.STRING,
+      },
+      primaryIndex: { partitionKey: "userId", sortKey: "noteId" },
+    });
+
+
+
+
     const mySite = new sst.ReactStaticSite(this, "ReactSite", {
       path: "frontend",
       buildOutput: "build",
@@ -24,6 +35,8 @@ export default class MyStack extends sst.Stack {
         REACT_APP_API_URL: api.url,
       },
     });
+
+
 
 
     // Show the endpoint in the output
