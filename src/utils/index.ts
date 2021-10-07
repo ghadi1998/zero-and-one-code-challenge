@@ -81,7 +81,7 @@ export const postTypeRendering = async (email: string) => {
     user.Items = user.Items!.map((item) => {
         return marshaller(item);
     });
-    return user.Items;
+    return user.Items[0];
 };
 
 

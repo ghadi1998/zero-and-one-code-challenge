@@ -8,8 +8,39 @@ export default class MyStack extends sst.Stack {
     // Create a HTTP API
     const api = new sst.Api(this, "Api", {
       routes: {
-        "GET /": "src/lambda.handler",
-        "GET /profile": "src/profile.handler",
+        "GET /": {
+          function: {
+            srcPath: ".",
+            handler: "src/lambda.handler",
+          },
+
+        }
+
+        ,
+        "POST /profile": {
+
+          function: {
+            srcPath: ".",
+            handler: "src/profile.handler",
+
+          },
+        }
+        ,
+        "POST /showPrivatePosts": {
+          function: {
+            srcPath: ".",
+            handler: "src/showPosts-private.handler",
+            permissions: ["dynamodb:GetItem",],
+          }
+        },
+        "POST /showPublicPosts": {
+          function: {
+            srcPath: ".",
+            handler: "src/showPosts-public.handler",
+            permissions: ["dynamodb:GetItem",],
+          }
+        }
+
       },
     });
 
@@ -19,10 +50,18 @@ export default class MyStack extends sst.Stack {
         userId: sst.TableFieldType.STRING,
         email: sst.TableFieldType.STRING,
       },
-      primaryIndex: { partitionKey: "userId", sortKey: "noteId" },
+      primaryIndex: { partitionKey: "userId" },
     });
 
-
+    const userPostTable = new sst.Table(this, "userPostTable", {
+      fields: {
+        userId: sst.TableFieldType.STRING,
+        postId: sst.TableFieldType.STRING,
+        postTitle: sst.TableFieldType.STRING,
+        postBody: sst.TableFieldType.STRING,
+      },
+      primaryIndex: { partitionKey: "userId", sortKey: "postId" },
+    });
 
 
     const mySite = new sst.ReactStaticSite(this, "ReactSite", {
@@ -41,8 +80,10 @@ export default class MyStack extends sst.Stack {
 
     // Show the endpoint in the output
     this.addOutputs({
+      userDataTable: userDataTable.tableArn,
+      userPostTable: userPostTable.tableArn,
       Domain: mySite.distributionDomain,
-      "ApiEndpoint": api.url,
+      ApiEndpoint: api.url,
     });
   }
 }
