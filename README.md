@@ -27,3 +27,6 @@ Will document the functions as much as possible.
 Will push to github my previous projects and microservices using the same stack.
 
 To start the app please run : npx sst deploy --stage dev 
+
+
+NOTE : ADDED SERVERLESS WITH CDK project
