@@ -1,45 +1,29 @@
-# Getting Started with Serverless Stack (SST)
+This project is task for showing my skills
 
-This project was bootstrapped with [Create Serverless Stack](https://docs.serverless-stack.com/packages/create-serverless-stack).
+Unfortunately I am not able to conitue it due to the death of my close relative
 
-Start by installing the dependencies.
+=================================================================================
 
-```bash
-$ npm install
-```
+First , this project is made up of a front end and a backend.
+The front end is consisted of ReactJs with AWS Amplify Auth Module.
+For AWS Amplify I am using the built in auth system " withAuthenticator(App) " and   "@aws-amplify/ui-react". Why ? Since why shall someone rewrite a code that is already written ? 
 
-## Commands
+Second , the back end consists of Serverless framework with serverless stack , bth written in type script.
+I usually write the back end before start connecting the front end with the api.
 
-### `npm run start`
+The profile api ( Lambda ) renders the user's data to be shown in the front end
+The showPosts-public renders the user's public posts
+The showPosts-private renders the user's private posts
+The delete comment and post will be done shortly.
 
-Starts the local Lambda development environment.
+The front end should be able to do the above functionalities alone , where the delete comment and post are triggered from the front end,
+and captured in the backend , or can be done in the front end directly , using AWS SDK and amplify
 
-### `npm run build`
+For the database, there are two tables , the user data one which shall take the data from the front end using cognito and localstorage ,
+and the second table is the posts table that contains the title , body , and type.
 
-Build your app and synthesize your stacks.
+Those are the main functionalities.
+Will document the functions as much as possible.
+Will push to github my previous projects and microservices using the same stack.
 
-Generates a `.build/` directory with the compiled files and a `.build/cdk.out/` directory with the synthesized CloudFormation stacks.
-
-### `npm run deploy [stack]`
-
-Deploy all your stacks to AWS. Or optionally deploy a specific stack.
-
-### `npm run remove [stack]`
-
-Remove all your stacks and all of their resources from AWS. Or optionally remove a specific stack.
-
-### `npm run test`
-
-Runs your tests using Jest. Takes all the [Jest CLI options](https://jestjs.io/docs/en/cli).
-
-## Documentation
-
-Learn more about the Serverless Stack.
-
-- [Docs](https://docs.serverless-stack.com)
-- [@serverless-stack/cli](https://docs.serverless-stack.com/packages/cli)
-- [@serverless-stack/resources](https://docs.serverless-stack.com/packages/resources)
-
-## Community
-
-[Follow us on Twitter](https://twitter.com/ServerlessStack) or [post on our forums](https://discourse.serverless-stack.com).
+To start the app please run : npx sst deploy --stage dev 

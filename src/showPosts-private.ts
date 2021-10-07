@@ -1,8 +1,5 @@
 import { APIGatewayProxyEventV2, APIGatewayProxyHandlerV2 } from "aws-lambda";
-import * as AWS from "aws-sdk"
-
-
-import { getPayload, postTypeRendering } from "./utils/index";
+import { postTypeRendering } from "./utils/index";
 
 export const handler: APIGatewayProxyHandlerV2 = async (
     event: APIGatewayProxyEventV2
@@ -13,15 +10,16 @@ export const handler: APIGatewayProxyHandlerV2 = async (
         "Access-Control-Allow-Methods": "OPTIONS,POST",
     };
     try {
-        let postType = '';
+        let email = '';
         if (event.body) {
             const body = JSON.parse(event.body)
-            if (body.postType)
-                postType = body.postType;
+            if (body.email)
+                email = body.email;
         }
 
-
-        const result = await postTypeRendering(postType)
+        console.log("here1")
+        const result = await postTypeRendering(email)
+        console.log("result")
         if (result.postType === "private")
             return result
 
@@ -32,8 +30,6 @@ export const handler: APIGatewayProxyHandlerV2 = async (
                 body: "There are no private posts",
             };
         }
-
-
     } catch (e: any) {
         console.error("An exception was thrown!");
         console.error(e.message);

@@ -1,19 +1,18 @@
-import * as AWS from "aws-sdk"
 import { DynamoDB } from "aws-sdk";
 
 const dynamoDb = new DynamoDB({ apiVersion: "2012-08-10" });
 const marshaller = DynamoDB.Converter.unmarshall;
 import { jsonContentType } from "./schemas";
-import { APIGatewayProxyEventV2, APIGatewayProxyHandlerV2 } from "aws-lambda";
+import { APIGatewayProxyEventV2 } from "aws-lambda";
 
 
-export const getContentType = (event: APIGatewayProxyEventV2) => {
+export const getContentType = (event: APIGatewayProxyEventV2): string | undefined => {
     console.log("Headers are");
     console.log(event.headers);
     return event.headers["Content-Type"] || event.headers["content-type"];
 };
 
-export const getPayload = async (event: APIGatewayProxyEventV2) => {
+export const getPayload = async (event: APIGatewayProxyEventV2): Promise<string | undefined> => {
     await jsonContentType.validate(getContentType(event));
     console.log("body is");
     console.log(event.body);
@@ -21,7 +20,7 @@ export const getPayload = async (event: APIGatewayProxyEventV2) => {
 };
 
 
-export const getUserDataFromDynamoDB = async (email: string) => {
+export const getUserDataFromDynamoDB = async (email: string): Promise<DynamoDB.AttributeMap> => {
     const params = {
         TableName: "userDataTable",
         KeyConditionExpression: "email = :email",
@@ -67,13 +66,13 @@ export const addUserPostData = async (postBody: string, postTitle: string, userI
 
 
 
-export const postTypeRendering = async (email: string) => {
+export const postTypeRendering = async (userId: string): Promise<DynamoDB.AttributeMap> => {
     const params = {
-        TableName: "userPostTable",
-        KeyConditionExpression: "email = :email",
+        TableName: "prod-zero-and-one-userPostTable",
+        KeyConditionExpression: "userId = :userId",
         ExpressionAttributeValues: {
-            ":email": {
-                S: email,
+            ":userId": {
+                S: userId,
             },
         },
     };

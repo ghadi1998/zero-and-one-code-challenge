@@ -1,7 +1,4 @@
 import { APIGatewayProxyEventV2, APIGatewayProxyHandlerV2 } from "aws-lambda";
-import * as AWS from "aws-sdk"
-
-
 import { postTypeRendering } from "./utils/index";
 
 export const handler: APIGatewayProxyHandlerV2 = async (
@@ -13,19 +10,23 @@ export const handler: APIGatewayProxyHandlerV2 = async (
         "Access-Control-Allow-Methods": "OPTIONS,POST",
     };
     try {
-        let postType = '';
+        let userId = '';
         if (event.body) {
             const body = JSON.parse(event.body)
-            if (body.postType)
-                postType = body.postType;
+            if (body.userId)
+                userId = body.userId;
         }
 
-
-        const result = await postTypeRendering(postType)
-        if (result.postType === "public")
-            return result
-
-        else {
+        console.log("here1")
+        const result = await postTypeRendering(userId)
+        console.log(result)
+        if (result.postType === "public") {
+            return {
+                statusCode: 200,
+                headers: { "Content-Type": "text/plain" },
+                body: result + "",
+            };
+        } else {
             return {
                 statusCode: 200,
                 headers: { "Content-Type": "text/plain" },
